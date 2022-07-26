@@ -53,6 +53,7 @@ class Form extends React.Component {
             type="number"
             name="cardAttr1"
             id="cardAttr1"
+
           />
         </label>
         <br />
@@ -129,7 +130,7 @@ class Form extends React.Component {
           data-testid="save-button"
           disabled={ isSaveButtonDisabled }
           onClick={ onSaveButtonClick }
-          type="submit"
+          type="button"
         >
           Salvar
         </button>
