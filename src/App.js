@@ -24,7 +24,7 @@ class App extends React.Component {
     };
   }
 
-  async onInputChange({ target }) {
+  onInputChange({ target }) {
     const { name } = target;
     let { value } = target;
     if (target.type === 'checkbox') {
@@ -32,24 +32,14 @@ class App extends React.Component {
     } else if (target.type === 'number') {
       value = target.valueAsNumber;
     }
-    await this.setState({
-      [name]: value,
+    this.setState({ [name]: value }, () => {
+      this.buttonValidation();
     });
-    this.buttonValidation();
   }
 
   onSaveButtonClick() {
-    const {
-      cardName,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardImage,
-      cardRare,
-      cardTrunfo,
-      savedCards,
-    } = this.state;
+    const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
+      cardRare, cardTrunfo, savedCards } = this.state;
     const obj = {
       cardName,
       cardDescription,
@@ -75,14 +65,8 @@ class App extends React.Component {
   }
 
   buttonValidation() {
-    const {
-      cardName,
-      cardDescription,
-      cardImage,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-    } = this.state;
+    const { cardName, cardDescription, cardImage, cardAttr1, cardAttr2,
+      cardAttr3 } = this.state;
     const singleLimit = 90;
     const maxLimit = 210;
     if (
@@ -90,8 +74,8 @@ class App extends React.Component {
       || cardDescription.length === 0
       || cardImage.length === 0
       || cardAttr1 < 0 || cardAttr1 > singleLimit
-      || cardAttr1 < 0 || cardAttr2 > singleLimit
-      || cardAttr1 < 0 || cardAttr3 > singleLimit
+      || cardAttr2 < 0 || cardAttr2 > singleLimit
+      || cardAttr3 < 0 || cardAttr3 > singleLimit
       || cardAttr1 + cardAttr2 + cardAttr3 > maxLimit
     ) {
       this.setState({
@@ -105,17 +89,8 @@ class App extends React.Component {
   }
 
   render() {
-    const {
-      cardName,
-      cardDescription,
-      cardAttr1,
-      cardAttr2,
-      cardAttr3,
-      cardImage,
-      cardRare,
-      cardTrunfo,
-      isSaveButtonDisabled,
-    } = this.state;
+    const { cardName, cardDescription, cardAttr1, cardAttr2, cardAttr3, cardImage,
+      cardRare, cardTrunfo, isSaveButtonDisabled } = this.state;
     return (
       <div>
         <h1>Tryunfo</h1>
